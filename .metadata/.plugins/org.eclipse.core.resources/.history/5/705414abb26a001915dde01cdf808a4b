@@ -1,0 +1,17 @@
+package adam.birr;
+
+
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+@Path("/save")
+public class SaveService {
+
+	@POST
+	@Path("/")
+	public Response save(@FormParam filename, String contents) {
+		return Response.status(200).build();
+	}
+}
