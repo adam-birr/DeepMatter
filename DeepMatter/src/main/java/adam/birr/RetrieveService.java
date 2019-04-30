@@ -27,6 +27,7 @@ public class RetrieveService {
 		// Ideally this would have been injected using dependency injection, time I am
 		// putting in the hard dependency
 		IStoreService storeService = new StoreService();
+		
 		int httpReturnCode = HttpStatus.SC_OK;
 		int end;
 		int begin;
@@ -51,7 +52,7 @@ public class RetrieveService {
 						httpReturnCode = HttpStatus.SC_BAD_REQUEST;
 					}
 				}
-			} catch (Exception e2) {
+			} catch (Exception beginIndexParseException) {
 				try {
 					result = storeService.retrieveFileAndProcess(filename);
 				} catch (Exception processException3) {

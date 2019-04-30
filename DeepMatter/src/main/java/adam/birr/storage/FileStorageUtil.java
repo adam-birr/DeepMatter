@@ -9,6 +9,7 @@ import java.util.List;
 public class FileStorageUtil {
 
 	public static void writeFile(String filename, List<String> lines) throws IOException {
-		Files.write(Paths.get("/" + filename + ".txt"), lines);
+		Files.write(Paths.get(System.getProperty("java.io.tmpdir") + "/" + filename + ".txt"), lines);
+		System.out.println("created file");
 	}
 }

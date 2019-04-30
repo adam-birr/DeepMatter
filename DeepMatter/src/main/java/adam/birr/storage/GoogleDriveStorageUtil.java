@@ -50,20 +50,22 @@ public class GoogleDriveStorageUtil {
 	}
 
 	public static File uploadFile(String fileName) throws IOException, GeneralSecurityException {
+		System.out.println("uploading file to google");
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME).build();
 		File fileMetadata = new File();
 		fileMetadata.setName(fileName + ".txt");
-		java.io.File filePath = new java.io.File("/");
+		java.io.File filePath = new java.io.File(System.getProperty("java.io.tmpdir") + "/");
 		FileContent content = new FileContent(null, filePath);
+		System.out.println("starting upload of " +  System.getProperty("java.io.tmpdir") + "/" + fileName + ".txt");
 		File file = service.files().create(fileMetadata, content).setFields("id").execute();
+		System.out.println("file uploaded");
 		return file;
 	}
 
 	private static String getFileId(String filename, Drive service) throws IOException, GeneralSecurityException {
 
-		// Print the names and IDs for up to 10 files.
 		FileList result = service.files().list().setPageSize(100).setFields("nextPageToken, files(id, name)").execute();
 		List<File> files = result.getFiles();
 		if (files == null || files.isEmpty()) {

@@ -16,6 +16,7 @@ public class StoreService implements IStoreService {
 		List<String> wordsArrayList = Arrays.asList(words);
 		wordsArrayList.sort(String::compareToIgnoreCase);
 		
+		System.out.println("storing " + wordsArrayList.toString() + " to file:" + filename);
 		FileStorageUtil.writeFile(filename, wordsArrayList);
 		GoogleDriveStorageUtil.uploadFile(filename);
 	}

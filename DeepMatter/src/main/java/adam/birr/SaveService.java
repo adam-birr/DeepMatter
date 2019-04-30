@@ -28,6 +28,7 @@ public class SaveService {
 		// Ideally this would have been injected using dependency injection, time I am putting in the hard dependency
 		IStoreService storeService = new StoreService();
 		try {
+			System.out.println("request recieved");
 			storeService.processAndStoreFile(filename, contents);
 		} catch (Exception exception) {
 			httpReturnCode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
