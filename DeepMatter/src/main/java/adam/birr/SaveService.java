@@ -9,7 +9,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import adam.birr.storage.IStoreService;
+import adam.birr.storage.StoreService;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,10 +25,16 @@ public class SaveService {
 	@Path("save")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response save(@FormParam(value = "filename") String filename, String contents) {
-		String[] words = contents.split("[\\r\\n]+");
-		List<String> wordsArrayList = Arrays.asList(words);
-		wordsArrayList.sort(String::compareToIgnoreCase);
-		return Response.status(200).entity(wordsArrayList).build();
+		int httpReturnCode = 200;
+		
+		// Ideally this would have been injected using dependency injection, time I am putting in the hard dependency
+		IStoreService storeService = new StoreService();
+		try {
+			storeService.processAndStoreFile(filename, contents);
+		} catch (Exception exception) {
+			httpReturnCode = 500;
+		} 
+		return Response.status(httpReturnCode).build();
 	}
 	
 	@GET
