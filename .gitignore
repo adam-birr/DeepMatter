@@ -1,0 +1,4 @@
+.metadata*
+DeepMatter/bin/*
+DeepMatter/build/*
+DeepMatter/.gradle/*
