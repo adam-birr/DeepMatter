@@ -18,7 +18,10 @@ public class StoreService implements IStoreService {
 		
 		System.out.println("storing " + wordsArrayList.toString() + " to file:" + filename);
 		FileStorageUtil.writeFile(filename, wordsArrayList);
-		GoogleDriveStorageUtil.uploadFile(filename);
+
+		// File upload to Google Drive Not working - 403 scope permission error 
+		// ToDo: Fix the authentication 
+		// GoogleDriveStorageUtil.uploadFile(filename);
 	}
 
 	@Override
@@ -37,13 +40,17 @@ public class StoreService implements IStoreService {
 			begin = 0;
 		}
 		try {
-			String contentString = GoogleDriveStorageUtil.downloadFileContents(filename);
-			List<String> lines = Arrays.asList( contentString.split(NEW_LINE_REGEX) );
+			
+			// -- Google drive not working due to authentication issue.
+			// String contentString = GoogleDriveStorageUtil.downloadFileContents(filename);
+			// List<String> lines = Arrays.asList( contentString.split(NEW_LINE_REGEX) );
+			
+			List<String> lines = FileStorageUtil.readFile(filename);
 			if (end == NOT_PROVIDED) {
 				end = lines.size();
 			}			
 			return lines.subList(begin, end);
-		} catch (GeneralSecurityException | IOException e) {
+		} catch (IOException e) {
 			throw e;
 		}
 	}

@@ -29,10 +29,11 @@ public class GoogleDriveStorageUtil {
 	private static final String APPLICATION_NAME = "Deep Matter";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
-	private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
+	private static List<String> scopes = Collections.singletonList(DriveScopes.DRIVE);
 	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
 	private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+
 		// Load client secrets.
 		InputStream in = GoogleDriveStorageUtil.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
 		if (in == null) {
@@ -40,9 +41,10 @@ public class GoogleDriveStorageUtil {
 		}
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
+		System.out.println("Google drive scopes:" + scopes);
 		// Build flow and trigger user authorization request.
 		GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY,
-				clientSecrets, SCOPES)
+				clientSecrets, scopes)
 						.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
 						.setAccessType("offline").build();
 		LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -59,9 +61,13 @@ public class GoogleDriveStorageUtil {
 		java.io.File filePath = new java.io.File(System.getProperty("java.io.tmpdir") + "/");
 		FileContent content = new FileContent(null, filePath);
 		System.out.println("starting upload of " +  System.getProperty("java.io.tmpdir") + "/" + fileName + ".txt");
-		File file = service.files().create(fileMetadata, content).setFields("id").execute();
-		System.out.println("file uploaded");
-		return file;
+		try {
+			File file = service.files().create(fileMetadata, content).setFields("id").execute();
+			return file;
+		} catch (Exception e) {
+			System.out.println(e + " " + e.getMessage());
+			throw e;
+		}
 	}
 
 	private static String getFileId(String filename, Drive service) throws IOException, GeneralSecurityException {
