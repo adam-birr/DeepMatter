@@ -36,6 +36,7 @@ public class StoreService implements IStoreService {
 
 	@Override
 	public List<String> retrieveFileAndProcess(String filename, int begin, int end) throws Exception {
+		System.out.print("retrieveFileAndProcess");
 		if (begin == NOT_PROVIDED) {
 			begin = 0;
 		}
@@ -44,13 +45,14 @@ public class StoreService implements IStoreService {
 			// -- Google drive not working due to authentication issue.
 			// String contentString = GoogleDriveStorageUtil.downloadFileContents(filename);
 			// List<String> lines = Arrays.asList( contentString.split(NEW_LINE_REGEX) );
-			
+			System.out.println("calling FileStorageUtil");
 			List<String> lines = FileStorageUtil.readFile(filename);
 			if (end == NOT_PROVIDED) {
 				end = lines.size();
-			}			
+			}	
+			System.out.println("Lines:\n"+lines.toString());
 			return lines.subList(begin, end);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw e;
 		}
 	}

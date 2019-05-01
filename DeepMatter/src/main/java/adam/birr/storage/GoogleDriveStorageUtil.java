@@ -25,10 +25,12 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
+// Mainly taken from the Google quickstart guide and other documentation and adapted accordingly
 public class GoogleDriveStorageUtil {
 	private static final String APPLICATION_NAME = "Deep Matter";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	private static final String TOKENS_DIRECTORY_PATH = "tokens";
+	// Changed from ReadOnly Scope, but still get a scoping error
 	private static List<String> scopes = Collections.singletonList(DriveScopes.DRIVE);
 	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
@@ -52,7 +54,6 @@ public class GoogleDriveStorageUtil {
 	}
 
 	public static File uploadFile(String fileName) throws IOException, GeneralSecurityException {
-		System.out.println("uploading file to google");
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME).build();
@@ -62,6 +63,7 @@ public class GoogleDriveStorageUtil {
 		FileContent content = new FileContent(null, filePath);
 		System.out.println("starting upload of " +  System.getProperty("java.io.tmpdir") + "/" + fileName + ".txt");
 		try {
+			// The following line fails with a 403 permissions scoping error
 			File file = service.files().create(fileMetadata, content).setFields("id").execute();
 			return file;
 		} catch (Exception e) {
@@ -72,6 +74,7 @@ public class GoogleDriveStorageUtil {
 
 	private static String getFileId(String filename, Drive service) throws IOException, GeneralSecurityException {
 
+		// Set page size to 100 - not sure on best practise here
 		FileList result = service.files().list().setPageSize(100).setFields("nextPageToken, files(id, name)").execute();
 		List<File> files = result.getFiles();
 		if (files == null || files.isEmpty()) {
@@ -89,6 +92,7 @@ public class GoogleDriveStorageUtil {
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
 				.setApplicationName(APPLICATION_NAME).build();
+		// Need to get the file ID before we can download the file.
 		String fileId = getFileId(filename, service);
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		service.files().get(fileId).executeMediaAndDownloadTo(outputStream);

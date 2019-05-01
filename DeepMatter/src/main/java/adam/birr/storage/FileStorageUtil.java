@@ -16,6 +16,8 @@ public class FileStorageUtil {
 	}
 	
 	public static List<String> readFile(String filename) throws IOException {
+		System.out.println("readFile: " + filename);
+
 		List<String> fileLines = new ArrayList<String>();
 
 		//read file into stream, try-with-resources
@@ -24,6 +26,7 @@ public class FileStorageUtil {
 			stream.forEach(s -> fileLines.add(s));
 			return fileLines;
 		} catch (IOException e) {
+			System.out.println(e.getMessage() + " " + e);
 			e.printStackTrace();
 			throw e;
 		}		

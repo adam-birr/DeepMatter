@@ -20,7 +20,6 @@ public class RetrieveService {
 
 	@GET
 	@Path("retrieve")
-	@Produces(MediaType.TEXT_PLAIN)
 	public Response retrieve(@QueryParam(value = "filename") String filename,
 			@QueryParam(value = "begin") String beginString, @QueryParam(value = "end") String endString) {
 
@@ -60,6 +59,7 @@ public class RetrieveService {
 				}
 			}
 		}
+		System.out.println("result:\n"+result.toString());
 		return Response.status(httpReturnCode).entity(result).build();
 	}
 }
