@@ -30,7 +30,7 @@ The issue with do it this way is that as the application scales automatically by
 For generating the 1k result the bash script: test1k.sh was used.
 For generating the 10k result the bash script: test10k.sh was used.
 The method of using curl to send in a string payload of 100k did not work.
-Instead I tried to use curl with a file for the payload.  Unfortunately, this did not correctly send in each word on a newline and as a result, the request handled the 100k file as a single word entry, so the test results are invalid.  I have converted the 100k test input file to windows file endings, but it still didn't change the outcome.
+Instead I tried to use curl with a file for the payload.  Unfortunately, this did not correctly send in each word on a newline and as a result, the request handled the 100k file as a single word entry, so the test results are invalid.  I have converted the 100k test input file to windows file endings, but it still didn't change the outcome.  I have run the 100k and 1000k save and retrieve calls within postman and have added their result below.
 
 The results for 1k and 10k are:
 
