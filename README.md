@@ -8,13 +8,13 @@ https://deepmatter.appspot.com/
 
 The two webservices are:
 
-/save?filename=<filename>  
+`/save?filename=<filename>`  
 This uses the HTTP POST verb
 This requires a header of application/x-www-form-urlencoded
 The body should be a list of words separed by newlines
 If successful, this will generate a HTTP 201 response code
 
-/retrieve?filename=<filename>&begin=<number>&end=<number>
+`/retrieve?filename=<filename>&begin=<number>&end=<number>`
 This uses the HTTP GET verb
 The begin and end parameters are optional
   
@@ -34,15 +34,19 @@ Instead I tried to use curl with a file for the payload.  Unfortunately, this di
 The results for 1k and 10k are:
 
 ### Save
+```
 1,282ms
 10,502ms
 100,invalid
 1000,not run
+```
 
 ### Retrieve
+```
 1,316ms
 10,250ms
 100,invalid
 1000,not run
+```
 
 It doesn't make much sense that the 10 retrieval is quicker than the 1kn retrieval, but these are the timing script gave and I believe they are correct.
