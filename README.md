@@ -21,7 +21,7 @@ The begin and end parameters are optional
 ## Notes on the implementation
 
 Unfortunately the the link to Google drive was not able to save files.
-The application returned a 403 scopes permission error when a file was attempted to be saved.
+The Google Drive returned a 403 scopes permission error when a file was attempted to be saved.
 Instead, the files are save to the local temp folder within the web app file structure.
 The issue with do it this way is that as the application scales automatically by GCP there it is not guarenteed that the the retrieve will hit the same instance that was used to save the file.  If this occurs, as HTTP 500 error is generated. Repeating the same request will eventually return the correct result.  Although most of the time the it will use the same instance to save and retrieve.
 
