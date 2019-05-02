@@ -39,7 +39,7 @@ The results for 1k and 10k are:
 1,282ms
 10,502ms
 100,invalid result for bash script - runnig with postman this result was: 368ms
-1000,not run
+1000,not run in bash script - running with postman this result was: 2024ms
 ```
 
 ### Retrieve
@@ -47,7 +47,7 @@ The results for 1k and 10k are:
 1,316ms
 10,250ms
 100,invalid result for bash script - running with postman this result was: 156ms
-1000,not run
+1000,not run in bash script - running with postman this result was: 1402ms
 ```
 
 It doesn't make much sense that the 10k retrieval is quicker than the 1k retrieval, but these are the timing script gave and I believe they are correct.
