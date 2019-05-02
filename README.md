@@ -55,5 +55,9 @@ The raw output of these scripts are:
   * 1kresults.txt
   * 10Kresults.txt
   * 100Kresults.txt
-  
+
 Note: All the scripts and result files are stored at the repo root.
+
+## Report
+
+The two page PDF report is located at the repo top level and is call DeepMatterReport.pdf
