@@ -2,12 +2,9 @@ package adam.birr;
 
 import java.util.List;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
@@ -36,9 +33,9 @@ public class RetrieveService {
 			httpReturnCode = HttpStatus.SC_BAD_REQUEST;
 		} else {
 			try {
-				begin = Integer.parseInt(beginString);
+				begin = Integer.parseInt(beginString) - 1;  // spec says that the first element is 1 and not 0.  Adjust according.
 				try {
-					end = Integer.parseInt(endString);
+					end = Integer.parseInt(endString) - 1;
 					try {
 						result = storeService.retrieveFileAndProcess(filename, begin, end);
 					} catch (Exception processException1) {
