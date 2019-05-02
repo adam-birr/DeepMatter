@@ -31,6 +31,7 @@ For generating the 1k result the bash script: test1k.sh was used.
 For generating the 10k result the bash script: test10k.sh was used.
 The method of using curl to send in a string payload of 100k did not work.
 Instead I tried to use curl with a file for the payload.  Unfortunately, this did not correctly send in each word on a newline and as a result, the request handled the 100k file as a single word entry, so the test results are invalid.  I have converted the 100k test input file to windows file endings, but it still didn't change the outcome.
+
 The results for 1k and 10k are:
 
 ### Save
@@ -49,4 +50,10 @@ The results for 1k and 10k are:
 1000,not run
 ```
 
-It doesn't make much sense that the 10 retrieval is quicker than the 1kn retrieval, but these are the timing script gave and I believe they are correct.
+It doesn't make much sense that the 10k retrieval is quicker than the 1k retrieval, but these are the timing script gave and I believe they are correct.
+The raw output of these scripts are:
+  * 1kresults.txt
+  * 10Kresults.txt
+  * 100Kresults.txt
+  
+Note: All the scripts and result files are stored at the repo root.
