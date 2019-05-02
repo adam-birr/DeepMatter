@@ -61,7 +61,7 @@ Bash script files:
 ```
 test1k.sh
 test10k.sh
-test1000k.sh
+test100k.sh
 ```
 
 Note: All the scripts and result files are stored at the repo root.  
