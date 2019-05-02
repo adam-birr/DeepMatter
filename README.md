@@ -38,7 +38,7 @@ The results for 1k and 10k are:
 ```
 1,282ms
 10,502ms
-100,invalid
+100,invalid result for bash script - runnig with postman this result was: 368ms
 1000,not run
 ```
 
@@ -46,7 +46,7 @@ The results for 1k and 10k are:
 ```
 1,316ms
 10,250ms
-100,invalid
+100,invalid result for bash script - running with postman this result was: 156ms
 1000,not run
 ```
 
