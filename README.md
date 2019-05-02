@@ -56,7 +56,15 @@ The raw output of these scripts are:
   * 10Kresults.txt
   * 100Kresults.txt
 
-Note: All the scripts and result files are stored at the repo root.
+Bash script files:
+
+```
+test1k.sh
+test10k.sh
+test1000k.sh
+```
+
+Note: All the scripts and result files are stored at the repo root.  
 
 ## Report
 
